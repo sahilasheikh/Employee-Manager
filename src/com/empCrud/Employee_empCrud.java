@@ -3,6 +3,7 @@ package com.empCrud;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class Employee_empCrud {
@@ -166,7 +167,15 @@ public class Employee_empCrud {
 		
 		try {
 			
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from emp where eno = ?");
 			
+			preparedStatement.setInt(1, eno);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				System.out.println(resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getInt(3));
+			}
 			
 		} catch (Exception e) {
 			System.out.println(e);
