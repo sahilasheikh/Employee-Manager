@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class Employee_empCrud {
 	
+//	main method
+	
 	public static void main(String[] args) {
 		
 		Scanner scan = new Scanner(System.in);
@@ -84,7 +86,7 @@ public class Employee_empCrud {
 					updateESALARY(connection, salary);
 				}
 //				update all details
-				else {
+				else if (updateNum == 4) {
 
 					System.out.println("Enter Employee Number");
 					eno = scan.nextInt();
@@ -98,6 +100,8 @@ public class Employee_empCrud {
 					salary = scan.nextInt();
 					
 					updateEmp(connection, eno, ename, salary);
+				} else {
+					System.out.println("Invalid Input");
 				}
 				
 			} 
@@ -110,6 +114,14 @@ public class Employee_empCrud {
 				
 				deleteEmp(connection, eno);
 			}
+			
+//			invalid input
+			else {
+				System.out.println("Invalid Input");
+			}
+			
+//			close connection
+//			connection.close();
 			
 			
 		} catch (Exception e) {
@@ -193,7 +205,18 @@ public class Employee_empCrud {
 		
 		try {
 			
+			PreparedStatement preparedStatement = connection.prepareStatement("delete emp where eno = ?");
 			
+			preparedStatement.setInt(1, eno);
+			
+			int i = preparedStatement.executeUpdate();
+			
+			if (i == 1) {
+				System.out.println("Employee Deleted");
+			} else {
+				System.out.println("Failed");
+			}
+ 			
 			
 		} catch (Exception e) {
 			System.out.println(e);
