@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class Employee_empCrud {
 	
 //	main method
-	
 	public static void main(String[] args) {
 		
 		Scanner scan = new Scanner(System.in);
@@ -59,35 +58,12 @@ public class Employee_empCrud {
 //			update condition
 			else if (operationNum == 3) {
 				
-				System.out.println("Update Employee Number = 1\nUpdate Employee Name = 2\nUpdate Employee Salary = 3\nUpdate All Details = 4\n");
+				System.out.println("Select number to perform operations\nUpdate Employee Name   = 1\nUpdate Employee Salary = 2");
+//				System.out.println("");
 				int updateNum = scan.nextInt();
 				
-//				update employee number
-				if (updateNum == 1) {
-
-					System.out.println("Enter Employee Number");
-					eno = scan.nextInt();
-					
-					updateENO(connection, eno);
-				}
 //				update employee name
-				else if (updateNum == 2) {
-
-					System.out.println("Enter Employee Name");
-					ename = scan.nextLine();
-					
-					updateENAME(connection, ename);
-				}
-//				update employee salary
-				else if (updateNum == 3) {
-
-					System.out.println("Enter Employee Salary");
-					salary = scan.nextInt();
-					
-					updateESALARY(connection, salary);
-				}
-//				update all details
-				else if (updateNum == 4) {
+				if (updateNum == 1) {
 
 					System.out.println("Enter Employee Number");
 					eno = scan.nextInt();
@@ -97,11 +73,21 @@ public class Employee_empCrud {
 					System.out.println("Enter Employee Name");
 					ename = scan.nextLine();
 					
+					updateENAME(connection, ename, eno);
+				}
+//				update employee salary
+				else if (updateNum == 2) {
+
+					System.out.println("Enter Employee Number");
+					eno = scan.nextInt();
+					
 					System.out.println("Enter Employee Salary");
 					salary = scan.nextInt();
 					
-					updateEmp(connection, eno, ename, salary);
-				} else {
+					updateESALARY(connection, salary, eno);
+				}
+//				invalid input
+				else {
 					System.out.println("Invalid Input");
 				}
 				
@@ -181,31 +167,53 @@ public class Employee_empCrud {
 			System.out.println(e);
 		}
 	}
-
-//	method for update employee all details
-	public static void updateEmp(Connection connection, int eno, String ename, int salary) {
+	
+//	method to update employee name
+	public static void updateENAME(Connection connection, String ename, int eno) {
 		
 		try {
 			
+			PreparedStatement preparedStatement = connection.prepareStatement("update emp set ename = ? where eno = ?");
+					
+				preparedStatement.setString(1, ename);
+				preparedStatement.setInt(2, eno);
+					
+				int i = preparedStatement.executeUpdate();
+					
+				if (i == 1) {
+					System.out.println("Employee Name is Updated");
+				} else {
+					System.out.println("Failed");
+				}
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+	}
+	
+//	method to update employee salary
+	public static void updateESALARY(Connection connection, int salary, int eno) {
+		
+		try {
+			
+			PreparedStatement preparedStatement = connection.prepareStatement("update emp set salary = ? where eno = ?");
+			
+			preparedStatement.setInt(1, salary);
+			preparedStatement.setInt(2, eno);
+			
+			int i = preparedStatement.executeUpdate();
+			
+			if (i == 1) {
+				System.out.println("Employee Salary Updated");
+			} else {
+				System.out.println("Failed");
+			}
 			
 			
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-	}
-	
-//	method to update employee number
-	public static void updateENO(Connection connection, int eno) {
-		
-	}
-	
-//	method to update employee name
-	public static void updateENAME(Connection connection, String ename) {
-		
-	}
-	
-//	method to update employee salary
-	public static void updateESALARY(Connection connection, int salary) {
 		
 	}
 	
