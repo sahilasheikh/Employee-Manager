@@ -4,9 +4,26 @@ public class Model_Employees {
 	
 	
 	private int eno;
-	double salary;
-	String ename;
+	private double salary;
+	private String ename;
 	
+	public Model_Employees() {
+		
+	}
+
+	public Model_Employees(double salary, String ename) {
+		super();
+		this.salary = salary;
+		this.ename = ename;
+	}
+
+	public Model_Employees(int eno, double salary, String ename) {
+		super();
+		this.eno = eno;
+		this.salary = salary;
+		this.ename = ename;
+	}
+
 	public int getEno() {
 		return eno;
 	}

@@ -1,5 +1,5 @@
-## Employee Manager
-* This is a JDBC [Java Database Connectivity] Project that that is an example of CRUD [Create, Retrieve, Update & Delete] operation Oracle Database.
+## JDBC CRUD
+* This is a JDBC [Java Database Connectivity] Project that performs CRUD [Create, Retrieve, Update & Delete] operation on Oracle Database.
 
 ## Getting Started
 * You just have to download the file and import in any java/jdbc editor.

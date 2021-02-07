@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.empmanager.model.Model_Employees;
 
@@ -39,11 +41,9 @@ public class Employee_DAO {
 //	method to retrieve the employee
 	public static Model_Employees retrieve(int eno) {
 		
-		Model_Employees employee = new Model_Employees();
+		Model_Employees employee = null;
 		
 		try {
-			
-			
 			Connection connection = Employee_DAO.getConnection();
 			PreparedStatement ps = connection.prepareStatement("select * from emp where eno = ?");
 			ps.setInt(1, eno);
@@ -51,18 +51,20 @@ public class Employee_DAO {
 			
 			if (rs.next()) {
 				
-				employee.setEno(rs.getInt(1));
-				employee.setEname(rs.getString(2));
-				employee.setSalary(rs.getDouble(3));
+				String ename = rs.getString(2);
+				double salary = rs.getDouble(3);
+				
+				System.out.println("Employee No.    :" + eno);
+				System.out.println("Employee Name   :" + ename);
+				System.out.println("Employee Salary :" + salary);
+				
+//				employee = new Model_Employees(eno, salary, ename);
 				
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return employee;
-		
 	}
 
 //	method to update name
@@ -107,6 +109,33 @@ public class Employee_DAO {
 			e.printStackTrace();
 		}
 		return i;
+	}
+	
+//	method to retrieve complete table the employee
+	public static List<Model_Employees> retrieve_table() {
+		
+		List<Model_Employees> employees = new ArrayList<Model_Employees>();
+		
+		try {
+			Connection connection = Employee_DAO.getConnection();
+			PreparedStatement ps = connection.prepareStatement("select * from emp");
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				
+				Model_Employees employee = new Model_Employees();
+				
+				employee.setEno(rs.getInt(1));
+				employee.setEname(rs.getString(2));
+				employee.setSalary(rs.getDouble(3));
+				
+				employees.add(employee);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employees;
 	}
 	
 }

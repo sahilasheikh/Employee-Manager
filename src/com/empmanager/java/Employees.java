@@ -1,9 +1,7 @@
 package com.empmanager.java;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.empmanager.dao.Employee_DAO;
@@ -17,7 +15,7 @@ public class Employees {
 		Scanner scan = new Scanner(System.in);
 		
 //		input commands
-		System.out.println("Select number to perform operations\ncreate   = 1\nretrieve = 2\nupdate   = 3\ndelete   = 4");
+		System.out.println("Select number to perform operations\ncreate   = 1\nretrieve = 2\nupdate   = 3\ndelete   = 4\ntable    = 5");
 		int operationNum = scan.nextInt();
 		int eno;
 		double salary;
@@ -64,9 +62,12 @@ public class Employees {
 				
 				Employee_DAO.retrieve(eno);
 				
-				System.out.println(employee.getEno());
-				System.out.println(employee.getEname());
-				System.out.println(employee.getSalary());
+//				String ename_retrieve = employee.getEname();
+//				double salary_retrieve = employee.getSalary();
+				
+//				System.out.println("Employee No.    :" + eno);
+//				System.out.println("Employee Name   :" + ename_retrieve);
+//				System.out.println("Employee Salary :" + salary_retrieve);
 				
 			}
 			
@@ -145,6 +146,18 @@ public class Employees {
 					System.out.println("Failed");
 				}
 				
+				
+			}
+			
+//			select complete table
+			else if (operationNum == 5) {
+				
+				List<Model_Employees> employees = Employee_DAO.retrieve_table();
+				for (Model_Employees emp:employees) {
+					
+					System.out.println(emp.getEno() + " " + emp.getEname() + " " + emp.getSalary());
+					
+				}
 				
 			}
 			
