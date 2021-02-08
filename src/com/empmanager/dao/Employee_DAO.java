@@ -22,6 +22,23 @@ public class Employee_DAO {
 		return connection;
 	}
 	
+//	method to retrieve max employee number
+	public static int maxEno(Model_Employees employee) {
+		int eno = 100;
+		try {
+			Connection connection = Employee_DAO.getConnection();
+			PreparedStatement ps = connection.prepareStatement("select max(eno) from emp");
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				eno = rs.getInt(1);
+				eno++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return eno;
+	}
+	
 //	method to create/insert employee
 	public static int insert(Model_Employees employee) {
 		int i = 0;
@@ -93,14 +110,21 @@ public class Employee_DAO {
 		return i;
 	}
 	
-//	method to delete salary
+//	method to delete Employee
 	public static int delete(Model_Employees employee) {
 		int i = 0;
 		try {
-			Connection connection = Employee_DAO.getConnection();
-			PreparedStatement ps = connection.prepareStatement("delete emp where eno = ?");
-			ps.setInt(1, employee.getEno());
-			i = ps.executeUpdate();
+			
+			int eno = Employee_DAO.maxEno(employee) - 1;
+			
+			if (eno == employee.getEno()) {
+				Connection connection = Employee_DAO.getConnection();
+				PreparedStatement ps = connection.prepareStatement("delete emp where eno = ?");
+				ps.setInt(1, employee.getEno());
+				i = ps.executeUpdate();
+			} else {
+				i = 0;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,7 +150,6 @@ public class Employee_DAO {
 				employee.setSalary(rs.getDouble(3));
 				
 				employees.add(employee);
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

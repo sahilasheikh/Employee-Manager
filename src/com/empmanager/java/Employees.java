@@ -29,8 +29,7 @@ public class Employees {
 //			create condition
 			if (operationNum == 1) {
 				
-				System.out.println("Enter Employee Number");
-				eno = scan.nextInt();
+				eno = Employee_DAO.maxEno(employee);
 				
 				temp = scan.nextLine(); 					// This line is using because after Int, nextLine has been skipped in java
 				
@@ -49,7 +48,7 @@ public class Employees {
 				if (i == 1) {
 					System.out.println("Employee Added");
 				} else {
-					System.out.println("Failed");
+					System.out.println("Cannot able to add the employee");
 				}
 				
 			}
@@ -140,22 +139,17 @@ public class Employees {
 				if (i == 1) {
 					System.out.println("Employee Deleted");
 				} else {
-					System.out.println("Failed");
+					System.out.println("Employee not found");
 				}
-				
 				
 			}
 			
 //			select complete table
 			else if (operationNum == 5) {
-				
 				List<Model_Employees> employees = Employee_DAO.retrieve_table();
 				for (Model_Employees emp:employees) {
-					
 					System.out.println(emp.getEno() + " " + emp.getEname() + " " + emp.getSalary());
-					
 				}
-				
 			}
 			
 //			invalid input
