@@ -114,17 +114,11 @@ public class Employee_DAO {
 	public static int delete(Model_Employees employee) {
 		int i = 0;
 		try {
-			
-			int eno = Employee_DAO.maxEno(employee) - 1;
-			
-			if (eno == employee.getEno()) {
 				Connection connection = Employee_DAO.getConnection();
 				PreparedStatement ps = connection.prepareStatement("delete emp where eno = ?");
 				ps.setInt(1, employee.getEno());
 				i = ps.executeUpdate();
-			} else {
-				i = 0;
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
