@@ -60,14 +60,11 @@ public class Employees {
 				System.out.println("Enter Employee Number");
 				eno = scan.nextInt();
 				
-				Employee_DAO.retrieve(eno);
+				employee = Employee_DAO.retrieve(eno);
 				
-//				String ename_retrieve = employee.getEname();
-//				double salary_retrieve = employee.getSalary();
-				
-//				System.out.println("Employee No.    :" + eno);
-//				System.out.println("Employee Name   :" + ename_retrieve);
-//				System.out.println("Employee Salary :" + salary_retrieve);
+				System.out.println("Employee No.    :" + employee.getEno());
+				System.out.println("Employee Name   :" + employee.getEname());
+				System.out.println("Employee Salary :" + employee.getSalary());
 				
 			}
 			

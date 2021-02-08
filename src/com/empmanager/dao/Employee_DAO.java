@@ -39,31 +39,27 @@ public class Employee_DAO {
 	}
 	
 //	method to retrieve the employee
-	public static Model_Employees retrieve(int eno) {
-		
+	public static Model_Employees retrieve(int eno_input) {
 		Model_Employees employee = null;
-		
+		int eno = 0;
+		String ename = null;
+		double salary = 0.0;
 		try {
 			Connection connection = Employee_DAO.getConnection();
 			PreparedStatement ps = connection.prepareStatement("select * from emp where eno = ?");
-			ps.setInt(1, eno);
+			ps.setInt(1, eno_input);
 			ResultSet rs = ps.executeQuery();
-			
 			if (rs.next()) {
-				
-				String ename = rs.getString(2);
-				double salary = rs.getDouble(3);
-				
-				System.out.println("Employee No.    :" + eno);
-				System.out.println("Employee Name   :" + ename);
-				System.out.println("Employee Salary :" + salary);
-				
-//				employee = new Model_Employees(eno, salary, ename);
-				
+				eno = rs.getInt(1);
+				ename = rs.getString(2);
+				salary = rs.getDouble(3);
+			} else {
+				System.out.println("No Employee Found");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		employee = new Model_Employees(eno, salary, ename);
 		return employee;
 	}
 
