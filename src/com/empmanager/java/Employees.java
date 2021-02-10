@@ -147,8 +147,11 @@ public class Employees {
 //			select complete table
 			else if (operationNum == 5) {
 				List<Model_Employees> employees = Employee_DAO.retrieve_table();
+				System.out.printf("%3s: %-25s%8s", "Eno", "Employee Name", "Salary");
+				System.out.println();		// this line is to seprate the above line with the for loop
 				for (Model_Employees emp:employees) {
-					System.out.println(emp.getEno() + " " + emp.getEname() + " " + emp.getSalary());
+					System.out.printf("%3d: %-25s%8f\n", emp.getEno(), emp.getEname(), emp.getSalary());
+//					printf is for padding
 				}
 			}
 			
